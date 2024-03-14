@@ -5,8 +5,8 @@ just testing
 npm install
 
 # compile c++ cube.cpp to .wasm
-emcc cube.cpp -s WASM=1 -o cube.wasm
+emcc pie_chart.cpp -o index.html -s WASM=1
 
 # Run server
-node index.js
+node server.js
 visit localhost:3000
