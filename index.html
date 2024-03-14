@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Render Cube with Wasm</title>
+</head>
+
+<body>
+  <h1>Render Cube with Wasm</h1>
+  <canvas id="canvas" width="400" height="400"></canvas>
+
+  <script>
+    const canvas = document.getElementById('canvas');
+    const gl = canvas.getContext('webgl');
+
+    // Load the Wasm module
+    const loadWasm = async () => {
+      const response = await fetch('cube.wasm');
+      const buffer = await response.arrayBuffer();
+      const module = await WebAssembly.instantiate(buffer);
+      const exports = module.instance.exports;
+
+      // Allocate memory for vertices and indices
+      const vertices = new Float32Array(24); // Allocate memory for vertices
+      const indices = new Int32Array(36); // Allocate memory for indices
+      exports.generateCube(vertices, indices);
+
+      // Set up shaders, buffers, and attributes (not shown here)
+      // ...
+
+      // Bind vertex buffer and index buffer (not shown here)
+      // ...
+
+      // Draw the cube using the indices
+      gl.drawElements(gl.TRIANGLES, indices.length, gl.UNSIGNED_INT, 0);
+    };
+
+    loadWasm();
+  </script>
+</body>
+
+</html>
