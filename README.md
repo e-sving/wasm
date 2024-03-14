@@ -2,7 +2,7 @@
 just testing
 
 # Requirements
-npm 
+npm install
 
 # compile c++ cube.cpp to .wasm
 emcc cube.cpp -s WASM=1 -o cube.wasm
